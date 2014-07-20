@@ -2,7 +2,7 @@
 
 # Global stuff
 export PATH=$HOME/bin:$PATH
-export EDITOR=vi
+export EDITOR=vim
 export CLICOLOR=1
 
 # Homebrew stuff
@@ -14,7 +14,7 @@ export LDFLAGS="-L/usr/local/lib"
 # Color stuff
 eval `gdircolors ~/.dir_colors`
 #alias ls='gls --color'
-alias vi='vi -p'
+alias vi='vim -p'
 
 # History stuff
 export HISTFILESIZE=1000000000
