@@ -1,0 +1,34 @@
+#!/bin/bash
+
+IFACE="en0"
+MAC_ROKU="cc:6d:a0:aa:84:ff"
+#MAC_OLD="ifconfig $IFACE | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'"
+MAC_OLD="98:fe:94:43:01:b0"
+SUCCESS_URL="http://www.apple.com/library/test/success.html"
+SUCCESS_TEXT="<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>"
+WAIT_SEC=2
+
+#set -x
+
+sudo ifconfig $IFACE ether $MAC_ROKU
+sudo ifconfig $IFACE down
+sudo ifconfig $IFACE up
+
+sleep 5
+
+text=`curl -sS $SUCCESS_URL`  # Silent but with errors
+if [ "$text" != "$SUCCESS_TEXT" ]; then
+  open -a Safari $SUCCESS_URL
+
+  while [ "$text" != "$SUCCESS_TEXT" ]; do
+    echo "Not connected yet, waiting $WAIT_SEC seconds..."
+    sleep $WAIT_SEC
+    text=`curl -sS $SUCCESS_URL`
+  done
+fi
+
+sleep 5
+
+sudo ifconfig $IFACE ether $MAC_OLD
+sudo ifconfig $IFACE down
+sudo ifconfig $IFACE up

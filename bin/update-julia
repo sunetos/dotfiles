@@ -1,0 +1,19 @@
+#!/bin/bash
+
+VERSION="0.3.0"
+URL="http://status.julialang.org/download/osx10.7+"
+APP="/Applications/Julia-$VERSION-prerelease.app"
+
+echo "Downloading Julia v$VERSION nightly..."
+dmg="/tmp/julia-v$VERSION-installer.dmg"
+curl -fsSL "$URL" > "$dmg"
+
+echo "Installing new DMG image..."
+hdiutil attach -quiet "$dmg"
+dmgapp=`find /Volumes/Julia -name 'Julia-*.app' 2> /dev/null`
+tag=`basename "$dmgapp" .app`
+cp -R $installer "$dmgapp" "$APP"
+hdiutil detach -quiet /Volumes/Julia
+rm "$dmg"
+
+echo "Successfully installed $tag."
