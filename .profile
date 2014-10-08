@@ -66,3 +66,6 @@ function ssh-copy-id-mac() { #mac version of ssh-copy-id
 #eval "$(rbenv init -)"
 
 export PATH=/Users/adam/bin/Sencha/Cmd/4.0.2.67:$PATH
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

@@ -1,3 +1,9 @@
 #!/bin/bash
 
+if [ ! -f /var/log/redis ]; then
+  echo 'Log file not found, creating (sudo will ask for your password)...'
+  sudo touch /var/log/redis
+  sudo chown `whoami` /var/log/redis
+fi
+
 nohup redis-server /usr/local/etc/redis.conf >> /var/log/redis &
